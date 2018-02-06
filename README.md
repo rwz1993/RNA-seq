@@ -35,3 +35,20 @@ I. STAR – RNA-seq read alignment
       #--twopassMode Basic specifies the use of two-pass mapping to better map reads around splice junctions 
       #--outSAMtype BAM SortedByCoordinate specifies the output file as a sorted BAM 
  
+
+II. Salmon - Quantification of aligned RNA-seq reads from STAR 
+
+Salmon has two modes: 1) Quasi-mapping-based mode, where it aligns reads to an indexed genome similar to STAR followed by quantification, and 2) alignment-based mode, where previously aligned reads with a different program (such as STAR) are then quantified against a user defined list of cDNA transcripts. We are using the alignment-based mode for our purposes. 
+
+   1. Quantifying previously aligned reads using alignment-based mode 
+   
+   salmon quant -p 8 -t Mus_musculus.GRCm38.cdna.all.fa -l A -a mouse_colon/colon_wtAligned.sortedByCoord.out.bam 
+   -o colon_wt_quant
+   
+   #-t specifies the transcript cDNA we are quantifying against 
+   #-l A specifies the library type (paired, unpaired, etc). The option A allows Salmon to peak inside the bam files and
+   decide for itself what library type it is and proceed accordingly. 
+   #-a specifies the bam file to be quantified. This is the output of STAR from the previous part 
+   
+   Here we got the quant.sf file as an output of Salmon that was very short. 
+   
